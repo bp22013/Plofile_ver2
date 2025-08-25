@@ -55,14 +55,14 @@ export const Navbar = () => {
     };
 
     return (
-        <nav className="bg-white/70 backdrop-blur-md border-b border-gray-200/50 shadow-sm sticky top-0 z-50">
+        <nav className="bg-[#1A0F00]/50 backdrop-blur-md border-b border-amber-200/20 shadow-sm sticky top-0 z-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
                     <div className="flex items-center space-x-3">
                         <div className="flex items-center justify-center w-10 h-10 bg-blue-600 rounded-lg">
                             <NabvarIcon />
                         </div>
-                        <span className="text-xl font-semibold text-gray-800">
+                        <span className="text-xl font-bold bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 text-transparent bg-clip-text">
                             {getCurrentPageTitle()}
                         </span>
                     </div>
@@ -74,8 +74,8 @@ export const Navbar = () => {
                                 href={item.Link}
                                 className={`flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                                     isActive(item.Link)
-                                        ? 'bg-blue-100 text-blue-600'
-                                        : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50/70'
+                                        ? 'bg-[#8b4513] text-amber-200'
+                                        : 'text-amber-200 hover:text-amber-100/80 hover:bg-blue-50/70'
                                 }`}
                             >
                                 {item.Icon}
