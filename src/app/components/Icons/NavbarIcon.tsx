@@ -1,18 +1,30 @@
+/* ナビゲーションバーのリスアイコンのコンポーネント */
+
 import React from 'react';
 
-export const NabvarIcon = () => {
+interface NabvarIconProps {
+    width?: string | number;
+    height?: string | number;
+    fill?: string;
+}
+
+export const NabvarIcon: React.FC<NabvarIconProps> = ({
+    width = '600.000000pt',
+    height = '600.000000pt',
+    fill = '#ff8c00',
+}) => {
     return (
         <svg
             version="1.0"
             xmlns="http://www.w3.org/2000/svg"
-            width="600.000000pt"
-            height="600.000000pt"
+            width={width}
+            height={height}
             viewBox="0 0 600.000000 600.000000"
             preserveAspectRatio="xMidYMid meet"
         >
             <g
                 transform="translate(0.000000,600.000000) scale(0.100000,-0.100000)"
-                fill="#000000"
+                fill={fill}
                 stroke="none"
             >
                 <path

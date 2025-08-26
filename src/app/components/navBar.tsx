@@ -59,7 +59,7 @@ export const Navbar = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
                     <div className="flex items-center space-x-3">
-                        <div className="flex items-center justify-center w-10 h-10 bg-blue-600 rounded-lg">
+                        <div className="flex items-center justify-center w-10 h-10 rounded-lg">
                             <NabvarIcon />
                         </div>
                         <span className="text-xl font-bold bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 text-transparent bg-clip-text">
