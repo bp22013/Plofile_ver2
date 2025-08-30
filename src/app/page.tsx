@@ -1,10 +1,12 @@
+/* ホームページ */
+
 'use client';
 
 import React from 'react';
 import { NextPage } from 'next';
 import { AnimatedLeaves } from './components/leafAnimation';
 
-const DashboardPage: NextPage = () => {
+const AboutPage: NextPage = () => {
     return (
         <div className="bg-[#1A0F00] fixed inset-0 overflow-hidden">
             <main>
@@ -14,4 +16,4 @@ const DashboardPage: NextPage = () => {
     );
 };
 
-export default DashboardPage;
+export default AboutPage;

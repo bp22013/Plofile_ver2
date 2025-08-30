@@ -1,3 +1,5 @@
+/* Next.js側API */
+
 import app from '@/server';
 import { handle } from 'hono/vercel';
 
