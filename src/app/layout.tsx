@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { Navbar } from './components/navBar';
+import { Pointer } from '@/components/magicui/pointer';
 import { NextFont } from 'next/dist/compiled/@next/font';
 import { ToasterContext } from './context/ToastContext';
 import { ReactNode, Suspense } from 'react';
@@ -18,8 +19,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <html lang="en">
             <Suspense>
                 <body className={inter.className}>
-                    <ToasterContext />
                     <Navbar />
+                    <Pointer className="fill-amber-200" />
+                    <ToasterContext />
                     <div>{children}</div>
                 </body>
             </Suspense>
