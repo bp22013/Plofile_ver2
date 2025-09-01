@@ -48,11 +48,12 @@ const ContactPage: NextPage = () => {
 
                     if (res.ok && resData.success) {
                         form.reset();
-                        resolve('送信が完了しました。');
+                        resolve(`${resData.message}`);
                     } else {
                         reject(`${resData.message}`);
                     }
                 } catch (error) {
+                    console.log(`サーバーエラーが発生しました: ${error}`);
                     reject(`サーバーエラーが発生しました: ${error}`);
                 } finally {
                     setIsLoading(false);

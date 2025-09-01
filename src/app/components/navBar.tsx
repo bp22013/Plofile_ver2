@@ -55,7 +55,7 @@ export const Navbar = () => {
     };
 
     return (
-        <nav className="bg-[#1A0F00]/50 backdrop-blur-md border-b border-amber-200/20 shadow-sm sticky top-0 z-50">
+        <nav className="bg-[#1A0F00]/50 backdrop-blur-md shadow-sm sticky top-0 z-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
                     <div className="flex items-center space-x-3">
