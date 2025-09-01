@@ -40,7 +40,7 @@ const ContactPage: NextPage = () => {
         toast.promise(
             new Promise<string>(async (resolve, reject) => {
                 try {
-                    const res = await client.api.contact.$post({
+                    const res = await client.api.contact.sendEmail.$post({
                         json: { name: data.name, email: data.email, message: data.message },
                     });
 
