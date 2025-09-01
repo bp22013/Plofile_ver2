@@ -7,7 +7,7 @@ import { Home, Laptop, ContactRound, BookText, Phone, Menu } from 'lucide-react'
 import { NabvarIcon } from './Icons/NavbarIcon';
 import { usePathname } from 'next/navigation';
 
-export interface NavItemProps {
+interface NavItemProps {
     Link: string;
     Display: string;
     Icon: React.ReactNode;
@@ -75,7 +75,7 @@ export const Navbar = () => {
                                 className={`flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                                     isActive(item.Link)
                                         ? 'bg-[#8b4513] text-amber-200'
-                                        : 'text-amber-200 hover:text-amber-100/80 hover:bg-blue-50/70'
+                                        : 'text-amber-200 hover:text-amber-200 hover:bg-[#8b4513]/50'
                                 }`}
                             >
                                 {item.Icon}
@@ -85,7 +85,7 @@ export const Navbar = () => {
                     </div>
 
                     <div className="md:hidden">
-                        <button className="flex items-center justify-center w-10 h-10 text-gray-600 hover:text-blue-600 hover:bg-blue-50/70 rounded-lg transition-all duration-200">
+                        <button className="flex items-center justify-center w-10 h-10 text-amber-200 hover:text-amber-100/80 hover:bg-amber-50/70 rounded-lg transition-all duration-200">
                             <Menu className="w-5 h-5" />
                         </button>
                     </div>

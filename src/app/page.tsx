@@ -6,6 +6,10 @@ import React from 'react';
 import { NextPage } from 'next';
 import { AnimatedLeaves } from './components/leafAnimation';
 import Image from 'next/image';
+import { Button } from '@/components/ui/button';
+import { TextAnimate } from '@/components/magicui/text-animate';
+import { AprilFonts } from '@/../public/fonts/AprilFonts';
+import { YasashisaFont } from '@/../public/fonts/YasashisaFonts';
 
 const AboutPage: NextPage = () => {
     return (
@@ -21,13 +25,34 @@ const AboutPage: NextPage = () => {
                         className="rounded-full border-1 bg-[#8b4513]"
                     />
 
-                    {/* 文字を縦に並べるコンテナ */}
-                    <div className="flex flex-col gap-4">
-                        <p className="text-white text-5xl mx-auto">Masaki Aoki / 青木 雅季</p>
-                        <p className="text-white text-2xl mx-auto">
-                            芝浦工業大学 4年　　コンピューターサイエンス専攻
-                        </p>
+                    <div className="flex flex-col gap-4 text-center">
+                        <div className="text-amber-200 text-5xl flex gap-2 justify-center items-center">
+                            <span className={AprilFonts.className}>
+                                <TextAnimate animation="blurInUp" by="character" once>
+                                    Masaki Aoki /
+                                </TextAnimate>
+                            </span>
+                            <span className={`${YasashisaFont.className} relative bottom-2`}>
+                                <TextAnimate animation="blurInUp" by="character" once>
+                                    青木 雅季
+                                </TextAnimate>
+                            </span>
+                        </div>
+                        <div className={`text-amber-200 text-2xl ${YasashisaFont.className}`}>
+                            <TextAnimate animation="blurInUp" by="character" once>
+                                芝浦工業大学 4年
+                            </TextAnimate>
+                        </div>
+                        <div className={`text-amber-200 text-2xl ${YasashisaFont.className}`}>
+                            <TextAnimate animation="blurInUp" by="character" once>
+                                コンピュータサイエンス専攻　画像応用システム研究室
+                            </TextAnimate>
+                        </div>
                     </div>
+                </div>
+
+                <div className="mt-10">
+                    <Button />
                 </div>
             </main>
         </div>
