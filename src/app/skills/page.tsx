@@ -57,7 +57,7 @@ const SkillsPage: NextPage = () => {
                     <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 text-transparent bg-clip-text">
                         Skills
                     </h1>
-                    <p className="mt-2 text-lg text-amber-300/80">使用技術一覧（※クリックで詳細を表示）</p>
+                    <p className="mt-2 text-lg text-amber-300/80">スキル一覧（※クリックで詳細を表示）</p>
                 </div>
 
                 <div className="z-10 grid grid-cols-1 md:grid-cols-2 gap-10 w-full max-w-7xl">
