@@ -17,10 +17,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     return (
         <html lang="en">
             <Suspense>
-                <body className={inter.className}>
+                <body className={`${inter.className} text-amber-200`}>
                     <Navbar />
                     <ToasterContext />
-                    <div>{children}</div>
+                    {children}
                 </body>
             </Suspense>
         </html>

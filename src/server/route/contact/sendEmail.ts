@@ -1,4 +1,4 @@
-/* NodeMailer送信ファイル */
+/* NodeMailer送信用ファイル */
 
 import { Hono } from 'hono';
 import { sendEmail } from './sender';

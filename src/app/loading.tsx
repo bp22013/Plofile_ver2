@@ -1,6 +1,6 @@
-/* ローディング画面 */
-
 'use client';
+
+/* ローディング画面 */
 
 import React from 'react';
 import { AnimatedSpan, Terminal, TypingAnimation } from '@/components/magicui/terminal';
