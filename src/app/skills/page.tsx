@@ -57,7 +57,7 @@ const SkillsPage: NextPage = () => {
                     <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 text-transparent bg-clip-text">
                         Skills
                     </h1>
-                    <p className="mt-2 text-lg text-amber-300/80">使用技術一覧</p>
+                    <p className="mt-2 text-lg text-amber-300/80">使用技術一覧（※クリックで詳細を表示）</p>
                 </div>
 
                 <div className="z-10 grid grid-cols-1 md:grid-cols-2 gap-10 w-full max-w-7xl">
@@ -79,15 +79,15 @@ const SkillsPage: NextPage = () => {
                                             className="flex flex-col items-center cursor-pointer"
                                             onClick={() => setSelectedSkill(model)}
                                         >
-                                            <div className="w-24 h-24 md:w-28 md:h-28">
+                                            <p className="text-sm text-center mb-2 text-amber-200">
+                                                {model.name}
+                                            </p>
+                                            <div className="w-20 h-20 md:w-28 md:h-28">
                                                 <ModelViewer
                                                     modelPath={model.path}
                                                     onLoad={handleModelLoad}
                                                 />
                                             </div>
-                                            <p className="mt-2 text-sm text-center text-amber-200">
-                                                {model.name}
-                                            </p>
                                         </div>
                                     ))}
                                 </div>
