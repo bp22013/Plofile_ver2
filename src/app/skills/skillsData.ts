@@ -39,6 +39,12 @@ export const skillCategories: SkillCategory[] = [
                 description:
                     'webアプリのフロントエンドを作成する時は、殆どこのフレームワークを使用しています。また、API Routerを使用してバックエンドを一緒に組み込むことが多いです。CSSはTailWindCSS派です。',
             },
+            {
+                name: 'Java',
+                path: '/gbl/Java.glb',
+                description:
+                    'AndroidアプリのUIの作成に使用していました。また、Spring BootやVaadinなどのUIでも使用していました。',
+            },
         ],
     },
     {
