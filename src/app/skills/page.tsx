@@ -9,7 +9,6 @@ import { AnimatedLeaves } from '../components/leafAnimation';
 import { CustomModal } from '../components/CustomModal';
 import Loading from '../loading';
 import { motion } from 'framer-motion';
-import { WordRotate } from '@/components/magicui/word-rotate';
 import { skillCategories, type Skill, type SkillCategory } from './skillsData';
 import {
     Carousel,
@@ -68,10 +67,9 @@ const SkillsPage: NextPage = () => {
                 </div>
 
                 <div className="text-center z-10 mb-12">
-                    <WordRotate
-                        className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 text-transparent bg-clip-text"
-                        words={['Skills', 'スキル']}
-                    />
+                    <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 text-transparent bg-clip-text">
+                        Skills
+                    </h1>
                     <p className="mt-2 text-lg text-amber-300/80">
                         スキル一覧（※クリックで詳細を表示）
                     </p>
