@@ -1,11 +1,16 @@
-/* スキル表示ページ - カード横スライド版 */
+/* スキル表示ページ */
 
 'use client';
 
-import React, { useState, useMemo, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { AnimatedLeaves } from '../components/leafAnimation';
+import { CustomModal } from '../components/CustomModal';
+import Loading from '../loading';
+import { motion } from 'framer-motion';
+import { WordRotate } from '@/components/magicui/word-rotate';
+import { skillCategories, type Skill, type SkillCategory } from './skillsData';
 import {
     Carousel,
     CarouselContent,
@@ -13,38 +18,38 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from '@/components/ui/carousel';
-import { AnimatedLeaves } from '../components/leafAnimation';
-import { CustomModal } from '../components/CustomModal';
-import Loading from '../loading';
-import { skillCategories, type Skill } from './skillsData';
-import { motion } from 'framer-motion';
 
-// 3Dビューアをクライアントサイドでのみ読み込む
-const ModelViewer = dynamic(() => import('../components/ModelViewer'), {
-    ssr: false,
-    loading: () => <div className="aspect-square w-full"></div>,
-});
+type MultiCanvasViewerProps = {
+    categories: SkillCategory[];
+    onModelClick: (skill: Skill) => void;
+    onAllModelsLoaded: () => void;
+    gridClassName?: string;
+    modelSpacingX?: number;
+    modelSpacingY?: number;
+    canvasClassName?: string;
+    cardClassName?: string;
+};
+
+const MultiCanvasViewer = dynamic<MultiCanvasViewerProps>(
+    () => import('../components/MultiModelViewer').then((m) => m.default),
+    { ssr: false, loading: () => <div className="w-full h-[350px] md:h-[400px]" /> }
+);
 
 const SkillsPage: NextPage = () => {
     const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null);
-    const [loadedCount, setLoadedCount] = useState(0);
+    const [loadedCategories, setLoadedCategories] = useState(0);
     const [isPageLoading, setIsPageLoading] = useState(true);
+    const totalCategories = skillCategories.length;
 
-    // スキルカテゴリは外部ファイルから取得
-    const totalModels = useMemo(
-        () => skillCategories.reduce((acc, category) => acc + category.models.length, 0),
-        []
-    );
-
-    const handleModelLoad = useCallback(() => {
-        setLoadedCount((prev) => prev + 1);
+    const handleCategoryLoad = useCallback(() => {
+        setLoadedCategories((prev) => prev + 1);
     }, []);
 
     useEffect(() => {
-        if (loadedCount >= totalModels && totalModels > 0) {
-            setIsPageLoading(false);
-        }
-    }, [loadedCount, totalModels]);
+        if (loadedCategories >= totalCategories) setIsPageLoading(false);
+    }, [loadedCategories, totalCategories]);
+
+    const handleModelClick = (skill: Skill) => setSelectedSkill(skill);
 
     return (
         <>
@@ -61,80 +66,70 @@ const SkillsPage: NextPage = () => {
                 <div className="absolute top-0 left-0 w-full h-full">
                     <AnimatedLeaves />
                 </div>
+
                 <div className="text-center z-10 mb-12">
-                    <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 text-transparent bg-clip-text">
-                        Skills
-                    </h1>
+                    <WordRotate
+                        className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 text-transparent bg-clip-text"
+                        words={['Skills', 'スキル']}
+                    />
                     <p className="mt-2 text-lg text-amber-300/80">
                         スキル一覧（※クリックで詳細を表示）
                     </p>
                 </div>
 
-                {/* カテゴリカードのCarousel */}
-                <div className="z-10 w-full max-w-4xl">
-                    <Carousel className="w-full relative">
+                <div className="z-10 w-full max-w-5xl">
+                    {/* relative を付与して矢印オーバーレイを内側に配置 */}
+                    <Carousel
+                        opts={{ align: 'start', slidesToScroll: 1, loop: false }}
+                        className="relative w-full overflow-visible"
+                    >
                         <CarouselContent className="-ml-4">
                             {skillCategories.map((category) => (
-                                <CarouselItem key={category.title} className="pl-4 md:basis-1/1">
-                                    <Card className="bg-[#2a1a0a]/60 backdrop-blur-md text-amber-200 border border-amber-700/50 shadow-lg h-full">
-                                        <CardHeader>
-                                            <CardTitle className="text-amber-300 text-2xl text-center">
-                                                {category.title}
-                                            </CardTitle>
-                                        </CardHeader>
-                                        <CardContent>
-                                            <div className="grid grid-cols-3 sm:grid-cols-4 gap-x-4 gap-y-6">
-                                                {category.models.map((model) => (
-                                                    <div
-                                                        key={model.name}
-                                                        className="flex flex-col items-center cursor-pointer"
-                                                        onClick={() => setSelectedSkill(model)}
-                                                    >
-                                                        <p className="text-sm text-center mb-2 text-amber-200">
-                                                            {model.name}
-                                                        </p>
-                                                        <div className="w-20 h-20 md:w-28 md:h-28">
-                                                            <ModelViewer
-                                                                modelPath={model.path}
-                                                                onLoad={handleModelLoad}
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </CardContent>
-                                    </Card>
+                                <CarouselItem key={category.title} className="pl-4 basis-full">
+                                    <MultiCanvasViewer
+                                        categories={[category]}
+                                        onModelClick={handleModelClick}
+                                        onAllModelsLoaded={handleCategoryLoad}
+                                        gridClassName="grid-cols-1 w-full"
+                                        // カード自体の横幅（Canvasはカード幅いっぱい）
+                                        cardClassName="w-full sm:w-[80%] max-w-[620px]"
+                                        canvasClassName="w-full"
+                                        // 必要に応じてモデルの横間隔も微調整可
+                                        // modelSpacingX={3.6}
+                                    />
                                 </CarouselItem>
                             ))}
                         </CarouselContent>
 
-                        <motion.div
-                            className="absolute -left-12 top-1/2 -translate-y-1/2 z-20"
-                            animate={{ x: [-4, 0, -4] }}
-                            transition={{ repeat: Infinity, duration: 1.8, ease: 'easeInOut' }}
-                        >
-                            <CarouselPrevious
-                                className="static cursor-pointer bg-[#2a1a0a]/80 border-amber-700/50 text-amber-300 hover:bg-[#3a2a1a]/80"
-                            />
-                        </motion.div>
+                        {/* ▼ カード幅に合わせた矢印のオーバーレイ（カードのすぐ外側に寄せる） */}
+                        <div className="pointer-events-none absolute inset-0 z-20 flex">
+                            <div className="relative mx-auto h-full w-full sm:w-[80%] max-w-[620px]">
+                                <motion.div
+                                    className="pointer-events-auto absolute -left-16 md:-left-16 sm:-left-4 top-1/2 -translate-y-1/2"
+                                    animate={{ x: [-4, 0, -4] }}
+                                    transition={{
+                                        repeat: Infinity,
+                                        duration: 1.8,
+                                        ease: 'easeInOut',
+                                    }}
+                                >
+                                    <CarouselPrevious className="static cursor-pointer bg-[#2a1a0a]/80 border-amber-700/50 text-amber-300 hover:bg-[#3a2a1a]/80" />
+                                </motion.div>
 
-                        <motion.div
-                            className="absolute -right-12 top-1/2 -translate-y-1/2 z-20"
-                            animate={{ x: [4, 0, 4] }}
-                            transition={{ repeat: Infinity, duration: 1.8, ease: 'easeInOut' }}
-                        >
-                            <CarouselNext
-                                className="static cursor-pointer bg-[#2a1a0a]/80 border-amber-700/50 text-amber-300 hover:bg-[#3a2a1a]/80"
-                            />
-                        </motion.div>
+                                <motion.div
+                                    className="pointer-events-auto absolute -right-16 md:-right-16 sm:-right-4 top-1/2 -translate-y-1/2"
+                                    animate={{ x: [4, 0, 4] }}
+                                    transition={{
+                                        repeat: Infinity,
+                                        duration: 1.8,
+                                        ease: 'easeInOut',
+                                    }}
+                                >
+                                    <CarouselNext className="static cursor-pointer bg-[#2a1a0a]/80 border-amber-700/50 text-amber-300 hover:bg-[#3a2a1a]/80" />
+                                </motion.div>
+                            </div>
+                        </div>
                     </Carousel>
-
-                    {/* ページインジケーター（オプション） */}
-                    <div className="flex justify-center mt-6 space-x-2">
-                        {skillCategories.map((_, index) => (
-                            <div key={index} className="w-2 h-2 rounded-full bg-amber-700/50" />
-                        ))}
-                    </div>
                 </div>
 
                 <CustomModal isOpen={!!selectedSkill} onClose={() => setSelectedSkill(null)}>

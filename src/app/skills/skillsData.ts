@@ -16,6 +16,17 @@ export const skillCategories: SkillCategory[] = [
         title: 'Frontend',
         models: [
             {
+                name: 'HTML',
+                path: '/gbl/HTML.glb',
+                description: '一番最初に学んだロジックを含まない言語で、今でもお世話になってます。',
+            },
+            {
+                name: 'CSS',
+                path: '/gbl/CSS.glb',
+                description:
+                    'HTMLと一緒に学び、jqueryなどを触っていましたが、最近はTilwindCSSを使用しています。',
+            },
+            {
                 name: 'JavaScript',
                 path: '/gbl/Javascript.glb',
                 description:
@@ -39,12 +50,6 @@ export const skillCategories: SkillCategory[] = [
                 description:
                     'webアプリのフロントエンドを作成する時は、殆どこのフレームワークを使用しています。また、API Routerを使用してバックエンドを一緒に組み込むことが多いです。CSSはTailWindCSS派です。',
             },
-            {
-                name: 'Java',
-                path: '/gbl/Java.glb',
-                description:
-                    'AndroidアプリのUIの作成に使用していました。また、Spring BootやVaadinなどのUIでも使用していました。',
-            },
         ],
     },
     {
@@ -58,7 +63,7 @@ export const skillCategories: SkillCategory[] = [
             },
             {
                 name: 'FastAPI',
-                path: '/gbl/FastApi.glb',
+                path: '/gbl/FastAPI.glb',
                 description:
                     'マイコンとwebの中継サーバーとしてよく使用していました。使用歴は比較的浅い方です。',
             },
@@ -107,6 +112,37 @@ export const skillCategories: SkillCategory[] = [
     },
     {
         title: 'Others',
-        models: [],
+        models: [
+            {
+                name: 'PostgreSQL',
+                path: '/gbl/PostgreSQL.glb',
+                description:
+                    '一番よく使うデータベースです。他にはSQLiteやMySQLを使いますが、drizzleやPrismaを使う関係でsupabaseやneonDBのPostgreSQLを使うことが多いです。',
+            },
+            {
+                name: 'Java',
+                path: '/gbl/Java.glb',
+                description:
+                    'AndroidアプリのUIの作成に使用していました。また、Spring BootやVaadinなどのUIでも使用していました。',
+            },
+            {
+                name: 'React Native Expo',
+                path: '/gbl/Expo.glb',
+                description:
+                    'React Nativeを使用してios用のネイティブアプリを開発する時に使用しようと試しましたが、ios用だとデプロイに99ドルかかるのであまり使いません。使用感自体はNext.jsとほぼ同じなので、学習コストはそれほどかかりませんでした。',
+            },
+            {
+                name: ' 基本情報技術者',
+                path: '/gbl/FE.glb',
+                description:
+                    '適当に勉強してたら受かってました。今は英語にお熱なので、後々応用を取ろうと考えてます。',
+            },
+            {
+                name: '第一種運転免許',
+                path: '/gbl/MiniCooper.glb',
+                description:
+                    '大学1年の夏に取りました。たまにレンタカーで旅したりします。モデルはミニクーパーの赤色です。',
+            },
+        ],
     },
 ];

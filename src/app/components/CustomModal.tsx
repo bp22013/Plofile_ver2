@@ -27,8 +27,6 @@ export const CustomModal: React.FC<CustomModalProps> = ({ isOpen, onClose, child
         };
     }, [onClose]);
 
-    // ポータルを使って、document.bodyの直下にレンダリングする
-    // これにより、親要素のCSSに影響されずに最前面に表示できる
     if (typeof document === 'undefined') {
         return null;
     }
