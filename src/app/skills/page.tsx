@@ -1,5 +1,3 @@
-/* スキル表示ページ */
-
 'use client';
 
 import React, { useState, useCallback, useEffect } from 'react';
@@ -9,7 +7,7 @@ import { AnimatedLeaves } from '../components/leafAnimation';
 import { CustomModal } from '../components/CustomModal';
 import Loading from '../loading';
 import { motion } from 'framer-motion';
-import { skillCategories, type Skill, type SkillCategory } from './skillsData';
+import skillData from '../data/skillsData.json';
 import {
     Carousel,
     CarouselContent,
@@ -17,6 +15,18 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from '@/components/ui/carousel';
+import { useSkillsContext } from '../context/SkillsContext';
+
+export interface Skill {
+    name: string;
+    path: string;
+    description: string;
+}
+
+export interface SkillCategory {
+    title: string;
+    models: Skill[];
+}
 
 type MultiCanvasViewerProps = {
     categories: SkillCategory[];
@@ -35,29 +45,31 @@ const MultiCanvasViewer = dynamic<MultiCanvasViewerProps>(
 );
 
 const SkillsPage: NextPage = () => {
+    const { areSkillsLoaded, setSkillsLoaded } = useSkillsContext();
     const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null);
     const [loadedCategories, setLoadedCategories] = useState(0);
-    const [isPageLoading, setIsPageLoading] = useState(true);
-    const totalCategories = skillCategories.length;
+    const totalCategories = skillData.length;
 
     const handleCategoryLoad = useCallback(() => {
         setLoadedCategories((prev) => prev + 1);
     }, []);
 
     useEffect(() => {
-        if (loadedCategories >= totalCategories) setIsPageLoading(false);
-    }, [loadedCategories, totalCategories]);
+        if (loadedCategories >= totalCategories) {
+            setSkillsLoaded(true);
+        }
+    }, [loadedCategories, totalCategories, setSkillsLoaded]);
 
     const handleModelClick = (skill: Skill) => setSelectedSkill(skill);
 
     return (
         <>
-            {isPageLoading && <Loading />}
+            {!areSkillsLoaded && <Loading />}
 
             <main
                 style={{
-                    opacity: isPageLoading ? 0 : 1,
-                    pointerEvents: isPageLoading ? 'none' : 'auto',
+                    opacity: areSkillsLoaded ? 1 : 0,
+                    pointerEvents: areSkillsLoaded ? 'auto' : 'none',
                     transition: 'opacity 0.5s ease-in-out',
                 }}
                 className="relative flex flex-col items-center px-6 mt-10 h-full w-full"
@@ -82,7 +94,7 @@ const SkillsPage: NextPage = () => {
                         className="relative w-full overflow-visible"
                     >
                         <CarouselContent className="-ml-4">
-                            {skillCategories.map((category) => (
+                            {skillData.map((category) => (
                                 <CarouselItem key={category.title} className="pl-4 basis-full">
                                     <MultiCanvasViewer
                                         categories={[category]}

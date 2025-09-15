@@ -5,6 +5,7 @@ import { Navbar } from './components/navBar';
 import { NextFont } from 'next/dist/compiled/@next/font';
 import { ToasterContext } from './context/ToastContext';
 import { ReactNode, Suspense } from 'react';
+import { SkillsProvider } from './context/SkillsContext';
 
 const inter: NextFont = Inter({ subsets: ['latin'] });
 
@@ -18,9 +19,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <html lang="en">
             <Suspense>
                 <body className={`${inter.className} text-amber-200`}>
-                    <Navbar />
-                    <ToasterContext />
-                    {children}
+                    <SkillsProvider>
+                        <Navbar />
+                        <ToasterContext />
+                        {children}
+                    </SkillsProvider>
                 </body>
             </Suspense>
         </html>

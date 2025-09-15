@@ -1,4 +1,4 @@
-/* Aboutページ — NavBarと重ならず、ページスクロール無し */
+/* Aboutページ */
 
 'use client';
 
@@ -9,6 +9,7 @@ import { motion } from 'framer-motion';
 import { AnimatedLeaves } from '../components/leafAnimation';
 import { AprilFonts } from '@/../public/fonts/AprilFonts';
 import { YasashisaFont } from '@/../public/fonts/YasashisaFonts';
+import aboutData from '../data/aboutData.json';
 
 const AboutPage: NextPage = () => {
     const containerVariants = {
@@ -24,33 +25,7 @@ const AboutPage: NextPage = () => {
         visible: { y: 0, opacity: 1, transition: { duration: 0.5 } },
     };
 
-    const internships = [
-        {
-            company: '芝浦工業大学　入学',
-            role: 'システム理工学部',
-            period: '2022年4月',
-            description: '',
-        },
-        {
-            company: 'Sky株式会社',
-            role: 'フロントエンドエンジニア',
-            period: '2024年9月',
-            description: 'Next.jsとJavascriptを用いたWebアプリ開発を担当しました。',
-        },
-        {
-            company: '伊藤忠テクノソリューションズ株式会社',
-            role: 'ワークショップ',
-            period: '2024年11月',
-            description: '顧客理解やウォーターフォールについて実際に体験しました。',
-        },
-        {
-            company: '富士通株式会社',
-            role: 'フルスタックエンジニア',
-            period: '2025年4月 - 2025年6月',
-            description:
-                'Next.jsをメインに用いたPerl製の医療系の修正管理システムのマイグレーションを担当しました。',
-        },
-    ];
+    const data = aboutData;
 
     return (
         <div className="fixed inset-x-0 top-16 bottom-0 bg-[#1A0F00] text-amber-200 overflow-hidden">
@@ -96,25 +71,22 @@ const AboutPage: NextPage = () => {
                         <div className="text-base sm:text-lg text-center md:text-left">
                             <h2 className="text-2xl font-bold mb-3 sm:mb-4 border-b-2 border-amber-500 pb-2"></h2>
                             <p className="leading-relaxed">
-                                芝浦工業大学でCSを専攻してます。Web関係の開発ではNext.jsやHono.jsといったフレームワークを使用して開発することが多いです。
-                                Web以外では、所属していた「鳥人間」という部活の電装班でマイコンを使った電子回路設計やアプリ開発を担当していたので、
-                                ハードウェアの方もよく触ってます。
+                                芝浦工業大学でCSを専攻してます。Webアプリの開発や所属している「鳥人間」という部活ではマイコンを使った電子回路設計、Androidのアプリ開発なんかも担ってます。
+                                趣味は幼少期から習っていたピアノです。
                             </p>
                             <p className="leading-relaxed">
-                                好きな動物はリスとレッサーパンダです。
+                                好きな動物はテーマの通り、リスとレッサーパンダです。
                             </p>
                         </div>
                     </div>
 
-                    {/* Right Column */}
                     <div className="md:col-span-2 min-h-0">
                         <h1 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 border-b-2 border-amber-500 pb-2">
                             Career
                         </h1>
 
-                        {/* タイムライン（ページスクロールなし。収まらない場合は下の overflow-auto を有効化） */}
                         <div className="relative h-[calc(100%-3rem)] sm:h-[calc(100%-4.5rem)] border-l-2 border-amber-700 pl-6 space-y-8 sm:space-y-12 overflow-hidden">
-                            {internships.map((internship, index) => (
+                            {data.map((data, index) => (
                                 <motion.div
                                     key={index}
                                     className="relative"
@@ -124,13 +96,13 @@ const AboutPage: NextPage = () => {
                                     <h3
                                         className={`${YasashisaFont.className} text-xl sm:text-2xl font-semibold`}
                                     >
-                                        {internship.company}
+                                        {data.company}
                                     </h3>
                                     <p className="text-sm sm:text-md text-amber-400 font-medium">
-                                        {internship.role} ({internship.period})
+                                        {data.role} ({data.period})
                                     </p>
                                     <p className="mt-2 text-amber-300 leading-relaxed">
-                                        {internship.description}
+                                        {data.description}
                                     </p>
                                 </motion.div>
                             ))}
