@@ -1,3 +1,5 @@
+/* skillsページ */
+
 'use client';
 
 import React, { useState, useCallback, useEffect } from 'react';
@@ -16,6 +18,7 @@ import {
     CarouselPrevious,
 } from '@/components/ui/carousel';
 import { useSkillsContext } from '../context/SkillsContext';
+import { YasashisaFont } from '../../../public/fonts/YasashisaFonts';
 
 export interface Skill {
     name: string;
@@ -79,7 +82,9 @@ const SkillsPage: NextPage = () => {
                 </div>
 
                 <div className="text-center z-10 mb-12">
-                    <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 text-transparent bg-clip-text">
+                    <h1
+                        className={`${YasashisaFont.className} text-4xl md:text-5xl font-bold bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 text-transparent bg-clip-text`}
+                    >
                         Skills
                     </h1>
                     <p className="mt-2 text-lg text-amber-300/80">
@@ -88,7 +93,6 @@ const SkillsPage: NextPage = () => {
                 </div>
 
                 <div className="z-10 w-full max-w-5xl">
-                    {/* relative を付与して矢印オーバーレイを内側に配置 */}
                     <Carousel
                         opts={{ align: 'start', slidesToScroll: 1, loop: false }}
                         className="relative w-full overflow-visible"
@@ -101,17 +105,13 @@ const SkillsPage: NextPage = () => {
                                         onModelClick={handleModelClick}
                                         onAllModelsLoaded={handleCategoryLoad}
                                         gridClassName="grid-cols-1 w-full"
-                                        // カード自体の横幅（Canvasはカード幅いっぱい）
                                         cardClassName="w-full sm:w-[80%] max-w-[620px]"
                                         canvasClassName="w-full"
-                                        // 必要に応じてモデルの横間隔も微調整可
-                                        // modelSpacingX={3.6}
                                     />
                                 </CarouselItem>
                             ))}
                         </CarouselContent>
 
-                        {/* ▼ カード幅に合わせた矢印のオーバーレイ（カードのすぐ外側に寄せる） */}
                         <div className="pointer-events-none absolute inset-0 z-20 flex">
                             <div className="relative mx-auto h-full w-full sm:w-[80%] max-w-[620px]">
                                 <motion.div

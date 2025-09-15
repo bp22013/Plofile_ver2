@@ -34,18 +34,15 @@ export const CustomModal: React.FC<CustomModalProps> = ({ isOpen, onClose, child
     return ReactDOM.createPortal(
         <AnimatePresence>
             {isOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center">
-                    {/* オーバーレイ */}
+                <div className="fixed inset-0 z-50 flex items-center justify-center" onClick={onClose}>
                     <motion.div
                         className="absolute inset-0 bg-black/70"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                        onClick={onClose} // 背景クリックで閉じる
                     />
 
-                    {/* モーダルコンテンツ */}
                     <motion.div
                         ref={modalRef}
                         className="relative w-full max-w-lg p-6 mx-4 bg-[#2a1a0a]/80 backdrop-blur-md text-amber-200 border border-amber-700/50 rounded-lg shadow-lg"
@@ -53,18 +50,19 @@ export const CustomModal: React.FC<CustomModalProps> = ({ isOpen, onClose, child
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.95 }}
                         transition={{ duration: 0.3 }}
+                        onClick={(e) => e.stopPropagation()}
                     >
-                        {/* 閉じるボタン */}
-                        <button
-                            onClick={onClose}
-                            className="cursor-pointer absolute top-4 right-4 z-10 p-2 bg-amber-600/20 hover:bg-amber-600/40 rounded-full transition-colors duration-200 group"
-                            aria-label="閉じる"
-                        >
-                            <X className="w-5 h-5 text-amber-300 group-hover:text-amber-100" />
-                        </button>
+                        <div className="flex justify-end">
+                            <button
+                                onClick={onClose}
+                                className="cursor-pointer z-10 p-2 -mr-2 -mt-2 bg-amber-600/20 hover:bg-amber-600/40 rounded-full transition-colors duration-200 group"
+                                aria-label="閉じる"
+                            >
+                                <X className="w-5 h-5 text-amber-300 group-hover:text-amber-100" />
+                            </button>
+                        </div>
 
-                        {/* コンテンツエリア */}
-                        <div className="pr-12">{children}</div>
+                        <div className="mt-2">{children}</div>
                     </motion.div>
                 </div>
             )}

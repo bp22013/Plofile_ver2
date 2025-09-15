@@ -71,7 +71,7 @@ const ContactPage: NextPage = () => {
         <div className="fixed inset-0 flex items-center justify-center bg-[#1A0F00] overflow-hidden">
             <AnimatedLeaves />
             <div className="relative z-10 w-full max-w-2xl rounded-2xl border border-neutral-700 bg-[#402600] backdrop-blur-md p-8 shadow-xl">
-                <h1 className="mb-6 text-center text-3xl font-bold text-amber-200">Contact Me</h1>
+                <h1 className="mb-6 text-center text-3xl font-bold text-amber-200">Contact</h1>
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                         <FormField
