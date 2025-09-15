@@ -18,30 +18,21 @@ import {
 } from '@/components/ui/carousel';
 import { Card, CardContent } from '@/components/ui/card';
 import { YasashisaFont } from '../../../public/fonts/YasashisaFonts';
-
-interface Project {
-    title: string;
-    description: string;
-    technologies: string[];
-    url: string;
-    image: string;
-}
-
-interface WorkCategory {
-    category: string;
-    projects: Project[];
-}
+import { type Project, type WorkCategory } from '@/types/types';
 
 const WorksPage: NextPage = () => {
+    // 選択されたプロジェクトを管理するstate
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
     return (
         <>
             <main className="relative flex flex-col items-center px-6 mt-10 h-full w-full">
+                {/* 背景の葉のアニメーション */}
                 <div className="absolute top-0 left-0 w-full h-full">
                     <AnimatedLeaves />
                 </div>
 
+                {/* ページタイトル */}
                 <div className="text-center z-10 mb-12">
                     <h1
                         className={`${YasashisaFont.className} text-4xl md:text-5xl font-bold bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 text-transparent bg-clip-text`}
@@ -53,6 +44,7 @@ const WorksPage: NextPage = () => {
                     </p>
                 </div>
 
+                {/* 作品カルーセル */}
                 <div className="z-10 w-full max-w-6xl">
                     <Carousel opts={{ loop: true }} className="relative w-full">
                         <CarouselContent>
@@ -70,12 +62,13 @@ const WorksPage: NextPage = () => {
                                                 {category.projects.map((project: Project) => (
                                                     <motion.div
                                                         key={project.title}
-                                                        whileHover={{ y: -8 }}
+                                                        whileHover={{ y: -8 }} // ホバー時に浮き上がるアニメーション
                                                         className="cursor-pointer"
-                                                        onClick={() => setSelectedProject(project)}
+                                                        onClick={() => setSelectedProject(project)} // クリックでモーダル表示
                                                     >
                                                         <Card className="bg-[#2a1a0a]/80 border-amber-700/50 h-full">
                                                             <CardContent className="p-0 flex flex-col h-full items-center mx-auto">
+                                                                {/* プロジェクト画像 */}
                                                                 <div className="relative w-full h-48">
                                                                     <Image
                                                                         src={
@@ -88,6 +81,7 @@ const WorksPage: NextPage = () => {
                                                                         className="bg-gray-700 rounded-t-lg"
                                                                     />
                                                                 </div>
+                                                                {/* プロジェクト情報 */}
                                                                 <div className="p-4 flex flex-col flex-grow text-center">
                                                                     <h3 className="text-xl font-bold text-amber-300">
                                                                         {project.title}
@@ -99,6 +93,7 @@ const WorksPage: NextPage = () => {
                                                                         )}
                                                                         ...
                                                                     </p>
+                                                                    {/* 使用技術タグ */}
                                                                     <div className="mt-4 flex flex-wrap gap-2 justify-center">
                                                                         {project.technologies
                                                                             .slice(0, 3)
@@ -121,7 +116,7 @@ const WorksPage: NextPage = () => {
                                             {/* 左矢印：縦中央。左右ガター（px）内に置くのでカードと被らない */}
                                             <motion.div
                                                 className="pointer-events-auto absolute inset-y-0 left-0 w-8 sm:w-10 lg:w-16 flex items-center justify-center z-20"
-                                                animate={{ x: [-2, 0, -2] }}
+                                                animate={{ x: [-2, 0, -2] }} // 左右に揺れるアニメーション
                                                 transition={{
                                                     repeat: Infinity,
                                                     duration: 1.8,
@@ -134,7 +129,7 @@ const WorksPage: NextPage = () => {
                                             {/* 右矢印：縦中央。左右ガター（px）内に置くのでカードと被らない */}
                                             <motion.div
                                                 className="pointer-events-auto absolute inset-y-0 right-0 w-8 sm:w-10 lg:w-16 flex items-center justify-center z-20"
-                                                animate={{ x: [2, 0, 2] }}
+                                                animate={{ x: [2, 0, 2] }} // 左右に揺れるアニメーション
                                                 transition={{
                                                     repeat: Infinity,
                                                     duration: 1.8,
@@ -151,6 +146,7 @@ const WorksPage: NextPage = () => {
                     </Carousel>
                 </div>
 
+                {/* プロジェクト詳細モーダル */}
                 <CustomModal isOpen={!!selectedProject} onClose={() => setSelectedProject(null)}>
                     {selectedProject && (
                         <div>
@@ -179,6 +175,7 @@ const WorksPage: NextPage = () => {
                                 ))}
                             </div>
                             <p className="text-amber-300/90 mb-4">{selectedProject.description}</p>
+                            {/* GitHubへのリンク（存在する場合のみ表示） */}
                             {selectedProject.url && selectedProject.url !== '#' && (
                                 <motion.a
                                     href={selectedProject.url}
@@ -190,6 +187,7 @@ const WorksPage: NextPage = () => {
                                     animate="rest"
                                 >
                                     GitHubはこちら
+                                    {/* ホバー時の下線アニメーション */}
                                     <motion.div
                                         variants={{ rest: { width: 0 }, hover: { width: '100%' } }}
                                         transition={{ duration: 0.3 }}

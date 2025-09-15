@@ -13,7 +13,12 @@ import Link from 'next/link';
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { motion } from 'framer-motion';
 
+/**
+ * ダッシュボード（トップページ）コンポーネント
+ * @returns {JSX.Element}
+ */
 const DashBoardPage: NextPage = () => {
+    // 各ページへのリンク情報を定義
     const pages = [
         { title: 'About', desc: '自己紹介や経歴を掲載しています。', href: '/about' },
         { title: 'Skills', desc: 'プログラミングや技術スキルの一覧。', href: '/skills' },
@@ -23,9 +28,12 @@ const DashBoardPage: NextPage = () => {
 
     return (
         <main className="flex flex-col items-center px-6 pt-28 pb-12">
+            {/* 背景の葉のアニメーション */}
             <AnimatedLeaves />
 
+            {/* プロフィールセクション */}
             <section className="flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-12 w-full max-w-5xl">
+                {/* プロフィール画像 */}
                 <div className="flex w-full justify-center lg:justify-start lg:basis-1/4 lg:shrink-0">
                     <Image
                         src="/main-icon.png"
@@ -36,9 +44,12 @@ const DashBoardPage: NextPage = () => {
                     />
                 </div>
 
+                {/* プロフィール情報 */}
                 <div className="flex flex-col gap-4 text-center lg:text-left lg:basis-3/4 lg:flex-1">
+                    {/* 名前（英語と日本語） */}
                     <div className="text-amber-200 text-4xl md:text-5xl flex flex-wrap justify-center lg:justify-start items-baseline gap-2">
                         <span className={AprilFonts.className}>
+                            {/* テキストアニメーション（ブラーインアップ） */}
                             <TextAnimate animation="blurInUp" by="character" once>
                                 Masaki Aoki /
                             </TextAnimate>
@@ -50,6 +61,7 @@ const DashBoardPage: NextPage = () => {
                         </span>
                     </div>
 
+                    {/* 所属大学 */}
                     <div
                         className={`text-amber-200 text-xl md:text-2xl ${YasashisaFont.className}`}
                     >
@@ -58,6 +70,7 @@ const DashBoardPage: NextPage = () => {
                         </TextAnimate>
                     </div>
 
+                    {/* 専攻と研究室 */}
                     <div
                         className={`text-amber-200 text-lg md:text-2xl ${YasashisaFont.className}`}
                     >
@@ -68,18 +81,20 @@ const DashBoardPage: NextPage = () => {
                 </div>
             </section>
 
+            {/* ナビゲーションカードセクション */}
             <section className="mt-12 w-full max-w-5xl">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {pages.map((page, idx) => (
                         <Link key={idx} href={page.href} className="group block">
+                            {/* ホバー時に浮き上がるアニメーション */}
                             <motion.div
-                                whileHover={{ y: -6 }}
-                                whileTap={{ y: -2 }}
+                                whileHover={{ y: -6 }} // ホバー時にy軸方向に-6移動
+                                whileTap={{ y: -2 }} // タップ時にy軸方向に-2移動
                                 transition={{
-                                    type: 'spring',
-                                    stiffness: 320,
-                                    damping: 22,
-                                    mass: 0.35,
+                                    type: 'spring', // アニメーションの種類
+                                    stiffness: 320, // 硬さ
+                                    damping: 22, // 減衰
+                                    mass: 0.35, // 質量
                                 }}
                                 className="h-full will-change-transform"
                             >

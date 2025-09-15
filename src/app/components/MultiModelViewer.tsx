@@ -1,18 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* 3Dモデル表示コンポーネント
-   - 1カテゴリー=1カード（1つのCanvasに複数モデル）
-   - 横/縦間隔を props で調整可能
-   - モデルは左右に“わずかに回転”するスイングで、ホバー時はカーソルが pointer
-   - Canvas 横幅は canvasClassName、カード横幅は cardClassName で制御
-*/
+/* 3Dモデル表示コンポーネント */
 
 'use client';
 
 import React, { Suspense, useRef, useEffect, useCallback, useState } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas, useFrame, ThreeEvent } from '@react-three/fiber';
 import { useGLTF, useCursor } from '@react-three/drei';
 import * as THREE from 'three';
-import { type Skill, type SkillCategory } from '../skills/skillsData';
+import { type Skill, type SkillCategory } from '@/types/types';
 
 function Model({
     model,
@@ -28,7 +22,6 @@ function Model({
     const { scene } = useGLTF(model.path);
     const modelRef = useRef<THREE.Group>(null);
 
-    // ホバー時にカーソルを pointer に
     const [hovered, setHovered] = useState(false);
     useCursor(hovered, 'pointer', 'auto');
 
@@ -40,13 +33,11 @@ function Model({
         if (!modelRef.current) return;
         const t = clock.getElapsedTime();
 
-        // 左右にわずかに回転（ヨーの往復）
         const swingDeg = 10;
         const swingSpeed = 0.9;
         const yawAmp = THREE.MathUtils.degToRad(swingDeg);
         modelRef.current.rotation.y = Math.sin(t * swingSpeed + position[0] * 0.35) * yawAmp;
 
-        // 弱い上下フロート（不要なら削除）
         modelRef.current.position.y = position[1] + Math.sin(t * 0.9 + position[0]) * 0.06;
 
         modelRef.current.rotation.x = 0;
@@ -59,12 +50,12 @@ function Model({
             object={scene}
             scale={1.2}
             position={position}
-            onPointerOver={(e: any) => {
+            onPointerOver={(e: ThreeEvent<PointerEvent>) => {
                 e.stopPropagation();
                 setHovered(true);
             }}
             onPointerOut={() => setHovered(false)}
-            onClick={(e: any) => {
+            onClick={(e: ThreeEvent<PointerEvent>) => {
                 e.stopPropagation();
                 onModelClick(model);
             }}
