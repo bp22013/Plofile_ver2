@@ -1,4 +1,4 @@
-/* ホームページ */
+/* ダッシュボードページ */
 
 'use client';
 
@@ -10,11 +10,10 @@ import { TextAnimate } from '@/components/magicui/text-animate';
 import { AprilFonts } from '@/../public/fonts/AprilFonts';
 import { YasashisaFont } from '@/../public/fonts/YasashisaFonts';
 import Link from 'next/link';
-
-// shadcn/ui のカードコンポーネント
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { motion } from 'framer-motion';
 
-const AboutPage: NextPage = () => {
+const DashBoardPage: NextPage = () => {
     const pages = [
         { title: 'About', desc: '自己紹介や経歴を掲載しています。', href: '/about' },
         { title: 'Skills', desc: 'プログラミングや技術スキルの一覧。', href: '/skills' },
@@ -25,8 +24,9 @@ const AboutPage: NextPage = () => {
     return (
         <main className="flex flex-col items-center px-6 pt-28 pb-12">
             <AnimatedLeaves />
-            <section className="flex flex-col md:flex-row md:items-center md:gap-16 gap-8 w-full max-w-5xl">
-                <div className="flex-shrink-0 justify-center md:justify-start">
+
+            <section className="flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-12 w-full max-w-5xl">
+                <div className="flex w-full justify-center lg:justify-start lg:basis-1/4 lg:shrink-0">
                     <Image
                         src="/main-icon.png"
                         alt="Main Icon"
@@ -36,9 +36,8 @@ const AboutPage: NextPage = () => {
                     />
                 </div>
 
-                {/* テキスト部分 */}
-                <div className="flex flex-col gap-4 text-center md:text-left">
-                    <div className="text-amber-200 text-4xl md:text-5xl flex flex-wrap justify-center md:justify-start items-baseline gap-2">
+                <div className="flex flex-col gap-4 text-center lg:text-left lg:basis-3/4 lg:flex-1">
+                    <div className="text-amber-200 text-4xl md:text-5xl flex flex-wrap justify-center lg:justify-start items-baseline gap-2">
                         <span className={AprilFonts.className}>
                             <TextAnimate animation="blurInUp" by="character" once>
                                 Masaki Aoki /
@@ -69,21 +68,32 @@ const AboutPage: NextPage = () => {
                 </div>
             </section>
 
-            {/* --- カード群セクション --- */}
             <section className="mt-12 w-full max-w-5xl">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {pages.map((page, idx) => (
-                        <Link key={idx} href={page.href} className="group">
-                            <Card className="bg-[#2a1a0a] text-amber-200 border-none shadow-md hover:bg-[#3a2612] transition transform group-hover:scale-105">
-                                <CardHeader>
-                                    <CardTitle className="text-lg md:text-xl font-bold">
-                                        {page.title}
-                                    </CardTitle>
-                                    <CardDescription className="text-amber-100 text-sm md:text-base">
-                                        {page.desc}
-                                    </CardDescription>
-                                </CardHeader>
-                            </Card>
+                        <Link key={idx} href={page.href} className="group block">
+                            <motion.div
+                                whileHover={{ y: -6 }}
+                                whileTap={{ y: -2 }}
+                                transition={{
+                                    type: 'spring',
+                                    stiffness: 320,
+                                    damping: 22,
+                                    mass: 0.35,
+                                }}
+                                className="h-full will-change-transform"
+                            >
+                                <Card className="bg-[#2a1a0a] text-amber-200 border-none shadow-md hover:bg-[#3a2612] transition">
+                                    <CardHeader>
+                                        <CardTitle className="text-lg md:text-xl font-bold">
+                                            {page.title}
+                                        </CardTitle>
+                                        <CardDescription className="text-amber-100 text-sm md:text-base">
+                                            {page.desc}
+                                        </CardDescription>
+                                    </CardHeader>
+                                </Card>
+                            </motion.div>
                         </Link>
                     ))}
                 </div>
@@ -92,4 +102,4 @@ const AboutPage: NextPage = () => {
     );
 };
 
-export default AboutPage;
+export default DashBoardPage;
