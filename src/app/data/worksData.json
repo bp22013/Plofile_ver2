@@ -39,6 +39,13 @@
                 "technologies": ["ESP32（Arduino）", "Java", "C"],
                 "url": "https://github.com/bp22013/s300-main",
                 "image": "/Miyabi.jpg"
+            },
+            {
+                "title": "視線トラッキングシステム",
+                "description": "ビジネスモデルコンペティションに参加した時に作成した視線トラッキングシステムです。OpenCVとDlibを用いて、カメラ映像から顔の特徴点を抽出し、視線の動きを解析します。",
+                "technologies": ["Python", "OpenCV", "Dlib"],
+                "url": "https://github.com/bp22013/Eye_tracker",
+                "image": "/eye_tracker.png"
             }
         ]
     }
