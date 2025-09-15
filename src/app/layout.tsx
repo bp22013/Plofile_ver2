@@ -6,6 +6,7 @@ import { NextFont } from 'next/dist/compiled/@next/font';
 import { ToasterContext } from './context/ToastContext';
 import { ReactNode, Suspense } from 'react';
 import { SkillsProvider } from './context/SkillsContext';
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 // Googleフォント'Inter'を読み込み、ラテン文字のサブセットを指定
 const inter: NextFont = Inter({ subsets: ['latin'] });
@@ -16,7 +17,7 @@ const site_description: string = '青木雅季'; // サイトの説明
 const twitter_id: string = '@masaki_0218'; // TwitterのID
 const url: string = process.env.NEXT_PUBLIC_APP_BASE_URL!; // サイトのURL（環境変数から取得）
 const image: string = `${url}/portfolio.png`; // OGP画像のパス
-const gaId = process.env.NEXT_PUBLIC_GA_ID; // Google AnalyticsのID（環境変数から取得）
+const gaId = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID!;
 
 // Next.jsのメタデータ設定
 export const metadata: Metadata = {
@@ -61,28 +62,18 @@ export const metadata: Metadata = {
     metadataBase: new URL(url ?? 'http://localhost:3000'),
 };
 
-/**
- * ルートレイアウトコンポーネント
- * @param {ReactNode} children - 子要素
- * @returns {JSX.Element}
- */
 export default function RootLayout({ children }: { children: ReactNode }) {
     return (
         <html lang="en">
-            {/* Suspenseを使用して、非同期処理の待機中にフォールバックUIを表示 */}
             <Suspense>
-                {/* Interフォントと基本のテキストカラーを適用 */}
                 <body className={`${inter.className} text-amber-200`}>
-                    {/* スキルデータを管理するProvider */}
                     <SkillsProvider>
-                        {/* ナビゲーションバー */}
                         <Navbar />
-                        {/* トースト通知（ポップアップメッセージ）のコンテキスト */}
                         <ToasterContext />
-                        {/* 各ページコンポーネントがここにレンダリングされる */}
                         {children}
                     </SkillsProvider>
                 </body>
+                <GoogleAnalytics gaId={gaId} />
             </Suspense>
         </html>
     );

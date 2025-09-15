@@ -68,10 +68,7 @@ const ContactPage: NextPage = () => {
     };
 
     return (
-        // モバイル: 通常フローでスクロール可
-        // md以上: 画面中央に固定配置
         <div className="relative bg-[#1A0F00] text-amber-200 min-h-screen md:fixed md:inset-0 md:flex md:items-center md:justify-center md:h-screen md:overflow-hidden">
-            {/* 背景アニメ（操作の邪魔をしない） */}
             <div className="pointer-events-none absolute inset-0">
                 <AnimatedLeaves />
             </div>
@@ -99,7 +96,7 @@ const ContactPage: NextPage = () => {
                                             <Input
                                                 placeholder="Your Name"
                                                 autoComplete="name"
-                                                className="bg-[#fffacd] border-[#708090] border-2 placeholder:text-gray-500 focus:border-amber-500 focus:ring-amber-500"
+                                                className="bg-[#fffacd] border-[#708090] border-2 text-gray-500 placeholder:text-gray-500 focus:border-amber-500 focus:ring-amber-500"
                                                 {...field}
                                             />
                                         </FormControl>
@@ -120,7 +117,7 @@ const ContactPage: NextPage = () => {
                                                 placeholder="your.email@example.com"
                                                 autoComplete="email"
                                                 inputMode="email"
-                                                className="bg-[#fffacd] border-[#708090] border-2 placeholder:text-gray-500 focus:border-amber-500 focus:ring-amber-500"
+                                                className="bg-[#fffacd] border-[#708090] border-2 text-gray-500 placeholder:text-gray-500 focus:border-amber-500 focus:ring-amber-500"
                                                 {...field}
                                             />
                                         </FormControl>
@@ -139,7 +136,7 @@ const ContactPage: NextPage = () => {
                                         <FormControl>
                                             <Textarea
                                                 placeholder="Contents"
-                                                className="bg-[#fffacd] border-[#708090] border-2 placeholder:text-gray-500 resize-y min-h-30 sm:min-h-28 focus:border-amber-500 focus:ring-amber-500"
+                                                className="bg-[#fffacd] border-[#708090] border-2 text-gray-500 placeholder:text-gray-500 resize-y min-h-30 sm:min-h-28 focus:border-amber-500 focus:ring-amber-500"
                                                 {...field}
                                             />
                                         </FormControl>
